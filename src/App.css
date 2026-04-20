@@ -7,16 +7,19 @@
 body {
   font-family: Poppins;
   background-color: #e6e5e5;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 343px;
+  width: 100%;
+  max-width: 343px;
   margin-top: 88px;
   margin-bottom: 238px;
-  margin-inline: 8px;
+  padding-inline: 16px;
   border-radius: 24px 24px 100px 24px;
 }
 
