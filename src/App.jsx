@@ -6,30 +6,30 @@ export default function App() {
     <>
       <div className="container">
         <div className="birthday">
-          <div className="day">
+          <div className="field">
             <p>GÜN</p>
-            <input type="text" />
+            <input type="text" maxLength={2} />
           </div>
-          <div className="month">
+          <div className="field field--middle">
             <p>AY</p>
-            <input type="text" />
+            <input type="text" maxLength={2} />
           </div>
-          <div className="year">
+          <div className="field">
             <p>YIL</p>
-            <input type="text" />
+            <input type="text" maxLength={4} />
           </div>
         </div>
-        <img src={Bottom} className="bottom" alt="" />
+
+        <div className="separator" />
+
+        <div className="action">
+          <img src={Bottom} className="bottom" alt="" />
+        </div>
+
         <div className="results">
-          <div className="years">
-            <h1><span>--</span> Yıl</h1>
-          </div>
-          <div className="months">
-            <h1><span>--</span> Ay</h1>
-          </div>
-          <div className="day">
-            <h1><span>--</span> Gün</h1>
-          </div>
+          <h1><span>--</span> Yıl</h1>
+          <h1><span>--</span> Ay</h1>
+          <h1><span>--</span> Gün</h1>
         </div>
       </div>
     </>
