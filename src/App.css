@@ -75,7 +75,7 @@ input:focus {
 
 .action {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   translate: 0 -32px;
   margin-bottom: calc(-32px + 16px);
 }
