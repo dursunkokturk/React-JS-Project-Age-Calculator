@@ -85,7 +85,7 @@ input:focus {
   width: 64px;
   height: 64px;
   /* margin: auto; */
-  /* margin-bottom: 32px; */
+  margin-bottom: 32px;
 }
 
 .bottom:hover {
