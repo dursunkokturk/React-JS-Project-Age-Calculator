@@ -1,4 +1,5 @@
-import Bottom from "./assets/img/bottom.png"
+import CircleMobile from "./assets/img/circle-mobile.png"
+import CircleDesktop from "./assets/img/circle-desktop.png"
 import './App.css'
 
 export default function App() {
@@ -23,7 +24,9 @@ export default function App() {
         <div className="separator" />
 
         <div className="action">
-          <img src={Bottom} className="bottom" alt="" />
+          <img src={CircleMobile} className="circle-mobile" alt="" />
+          <img src={CircleDesktop} className="circle-desktop" alt="" />
+          {/* <img src={CircleBottom} className="circle-bottom" alt="" /> */}
         </div>
 
         <div className="results">

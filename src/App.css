@@ -81,15 +81,17 @@ input:focus {
   margin-bottom: calc(-32px + 16px);
 }
 
-
-.bottom {
+.circle-mobile {
   width: 64px;
   height: 64px;
-  /* margin: auto; */
   margin-bottom: 32px;
 }
 
-.bottom:hover {
+.circle-desktop {
+  display: none;
+}
+
+.circle:hover {
   scale: 1.08;
   opacity: 0.9;
 }
@@ -149,11 +151,26 @@ span {
     padding: 12px 16px;
   }
 
+  .separator {
+    transform: translateY(20px);
+  }
+
   .action {
     display: flex;
     justify-content: flex-end;
     translate: 0 -32px;
     margin-bottom: calc(-32px + 16px);
+  }
+
+  .circle-mobile {
+    display: none;
+  }
+
+  .circle-desktop {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin-bottom: 32px;
   }
 
   .results h1 {
