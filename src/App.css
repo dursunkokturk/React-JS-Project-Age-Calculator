@@ -21,7 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   background: #fff;
-  width: min(343px, calc(100% - 32px));
+  width: 100%;
+  max-width: 343px;
   margin-block: 88px;
   margin-inline: auto;
   padding: 48px 24px;
@@ -115,30 +116,34 @@ span {
 @media(min-width:1109px) {
   .container {
     --radius-corner: 200px;
-
-    width: min(840px, calc(100% - 64px));
+    width: 840px;
+    max-width: none;
     padding: 56px;
   }
 
   .birthday {
     width: 100%;
-    gap: 24px;
+    gap: 32px;
     margin-bottom: 64px;
-    /* width: fit-content; */
+
+    display: flex;
+    justify-content: flex-start;
   }
 
   .field {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex: 1;
+    flex: unset;
   }
 
-  .field-middle{
+  /* .field-middle{
     padding-inline: 32px;
-  }
+  } */
 
   input {
+    /* width: 100%; */
+    width: clamp(90px, 8vw, 120px);
     font-size: 32px;
     /* min-width: 160px; */
     padding: 12px 16px;
@@ -147,9 +152,7 @@ span {
   .action {
     display: flex;
     justify-content: flex-end;
-    /* butonu sağa yasla */
     translate: 0 -32px;
-    /* separator'ın üstüne taşı */
     margin-bottom: calc(-32px + 16px);
   }
 
