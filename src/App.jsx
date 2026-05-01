@@ -32,6 +32,16 @@ export default function App() {
     return true;
   }
 
+  // ------------------- Artik Yil Hesaplama -------------------
+  function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  }
+
+  // ---------- Ayin Kac Gun Cektigini Bulan Fonksiyon ----------
+  function getDaysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
+  }
+
   function validate(value, type) {
 
     const num = Number(value);
@@ -47,14 +57,23 @@ export default function App() {
       return "Sadece Sayı Giriniz";
     }
 
-    if (type === "day" && (num < 1 || num > 31)) {
-      return "Geçerli Bir Gün Giriniz";
+    if (type === "day") {
+
+      // Kullanici Ilk Olarak Gun Degerini Yazarsa 
+      // Tam Tarih Girilene Kadar Hata Vermesini Engelliyoruz
+      if (!month || !year) return "";
+
+      const daysInMonth = getDaysInMonth(Number(month), Number(year));
+
+      if (num < 1 || num > daysInMonth) {
+        return "Geçerli Bir Gün Giriniz";
+      }
     }
 
     if (type === "month" && (num < 1 || num > 12)) {
       return "Geçerli Bir Ay Giriniz";
     }
-    
+
     if (type === "year" && (num > currentYear)) {
       return "Geçerli Bir Yıl Giriniz";
     }
@@ -65,8 +84,19 @@ export default function App() {
   function calculateAge() {
     if (!checkFormValidity()) return;
 
-    const birthDate = new Date(year, month - 1, day);
+    const d = Number(day);
+    const m = Number(month);
+    const y = Number(year);
+
+    const birthDate = new Date(y, m - 1, d);
     const today = new Date();
+
+    const isValidDate = birthDate.getFullYear() === y && birthDate.getMonth() === m - 1 && birthDate.getDate() === d;
+
+    if (!isValidDate) {
+      setFormError("Geçersiz tarih girdiniz");
+      return;
+    }
 
     let years = today.getFullYear() - birthDate.getFullYear();
     let months = today.getMonth() - birthDate.getMonth();
