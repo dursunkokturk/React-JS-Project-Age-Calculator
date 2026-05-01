@@ -6,18 +6,30 @@ import { useState } from "react"
 export default function App() {
 
   const [day, setDay] = useState("");
-  const [error, setError] = useState("");
+  const [month, setMonth] = useState("");
 
-  function validate(value) {
+  const [dayError, setDayError] = useState("");
+  const [monthError, setMonthError] = useState("");
+
+  function validate(value, type) {
 
     const num = Number(value);
 
     if (!value.trim()) {
-      return "Gün Alanı Boş Bırakılamaz";
+      return type === "day"
+        ? "Gün Alanı Boş Bırakılamaz"
+        : "Ay Alanı Boş Bırakılamaz";
     }
 
-    if (isNaN(num) || num < 1 || num > 31) {
+    if (isNaN(num)) {
+      return "Sadece Sayı Giriniz";
+    }
+
+    if (type==="day" && (num < 1 || num > 31)) {
       return "Geçerli Bir Gün Giriniz";
+    }
+    if (type==="month" && (num < 1 || num > 12)) {
+      return "Geçerli Bir Ay Giriniz";
     }
 
     return "";
@@ -28,26 +40,40 @@ export default function App() {
       <div className="container">
         <div className="birthday">
           <div className="field">
-            <p className={error ? "label-error" : ""}>GÜN</p>
+            <p className={dayError ? "label-error" : ""}>GÜN</p>
             <input
               type="text"
               onChange={(e) => {
                 const value = e.target.value;
                 setDay(value);
 
-                const validationError = validate(value);
-                setError(validationError);
+                const validationError = validate(value,"day");
+                setDayError(validationError);
               }}
               value={day}
               maxLength={2}
               placeholder="GÜN"
-              className={error ? "input-error" : ""}
+              className={dayError ? "input-error" : ""}
             />
-            {error && <span className="error-text">{error}</span>}
+            {dayError && <span className="error-text">{dayError}</span>}
           </div>
           <div className="field field--middle">
-            <p>AY</p>
-            <input type="text" maxLength={2} placeholder="AY" />
+            <p className={monthError ? "label-error" : ""}>AY</p>
+            <input
+              type="text"
+              onChange={(e) => {
+                const value = e.target.value;
+                setMonth(value);
+
+                const validationError = validate(value,"month");
+                setMonthError(validationError);
+              }}
+              value={month}
+              maxLength={2}
+              placeholder="AY"
+              className={monthError ? "input-error" : ""}
+            />
+            {monthError && <span className="error-text">{monthError}</span>}
           </div>
           <div className="field">
             <p>YIL</p>
