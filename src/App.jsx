@@ -128,84 +128,92 @@ export default function App() {
             {formError}
           </div>
         )}
-        <div className="birthday">
-          <div className="field">
-            <p className={dayError ? "label-error" : ""}>GÜN</p>
-            <input
-              type="text"
-              onChange={(e) => {
-                const value = e.target.value;
-                setDay(value);
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            calculateAge();
+          }}>
+          <div className="birthday">
+            <div className="field">
+              <p className={dayError ? "label-error" : ""}>GÜN</p>
+              <input
+                type="text"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setDay(value);
 
-                const validationError = validate(value, "day");
-                setDayError(validationError);
-                setFormError("");
-              }}
-              value={day}
-              maxLength={2}
-              placeholder="GÜN"
-              className={dayError ? "input-error" : ""}
-            />
-            {dayError && <span className="error-text">{dayError}</span>}
+                  const validationError = validate(value, "day");
+                  setDayError(validationError);
+                  setFormError("");
+                }}
+                value={day}
+                maxLength={2}
+                placeholder="GÜN"
+                className={dayError ? "input-error" : ""}
+              />
+              {dayError && <span className="error-text">{dayError}</span>}
+            </div>
+            <div className="field field--middle">
+              <p className={monthError ? "label-error" : ""}>AY</p>
+              <input
+                type="text"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setMonth(value);
+
+                  const validationError = validate(value, "month");
+                  setMonthError(validationError);
+                  setFormError("");
+                }}
+                value={month}
+                maxLength={2}
+                placeholder="AY"
+                className={monthError ? "input-error" : ""}
+              />
+              {monthError && <span className="error-text">{monthError}</span>}
+            </div>
+            <div className="field">
+              <p className={yearError ? "label-error" : ""}>YIL</p>
+              <input
+                type="text"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setYear(value);
+
+                  const validationError = validate(value, "year");
+                  setYearError(validationError);
+                  setFormError("");
+                }}
+                value={year}
+                maxLength={4}
+                placeholder="YIL"
+                className={yearError ? "input-error" : ""}
+              />
+              {yearError && <span className="error-text">{yearError}</span>}
+            </div>
           </div>
-          <div className="field field--middle">
-            <p className={monthError ? "label-error" : ""}>AY</p>
-            <input
-              type="text"
-              onChange={(e) => {
-                const value = e.target.value;
-                setMonth(value);
 
-                const validationError = validate(value, "month");
-                setMonthError(validationError);
-                setFormError("");
-              }}
-              value={month}
-              maxLength={2}
-              placeholder="AY"
-              className={monthError ? "input-error" : ""}
+          <div className="separator" />
+          {formError && <p className="form-error">{formError}</p>}
+
+          <div className="action" onClick={checkFormValidity}>
+            <img
+              src={CircleMobile}
+              className="circle-mobile action-click"
+              onClick={calculateAge}
+              alt=""
             />
-            {monthError && <span className="error-text">{monthError}</span>}
+            <button type="submit" className="action-btn">
+              <img
+                src={CircleDesktop}
+                className="circle-desktop action-click"
+                onClick={calculateAge}
+                alt=""
+              />
+            </button>
+            {/* <img src={CircleBottom} className="circle-bottom" alt="" /> */}
           </div>
-          <div className="field">
-            <p className={yearError ? "label-error" : ""}>YIL</p>
-            <input
-              type="text"
-              onChange={(e) => {
-                const value = e.target.value;
-                setYear(value);
-
-                const validationError = validate(value, "year");
-                setYearError(validationError);
-                setFormError("");
-              }}
-              value={year}
-              maxLength={4}
-              placeholder="YIL"
-              className={yearError ? "input-error" : ""}
-            />
-            {yearError && <span className="error-text">{yearError}</span>}
-          </div>
-        </div>
-
-        <div className="separator" />
-        {formError && <p className="form-error">{formError}</p>}
-
-        <div className="action" onClick={checkFormValidity}>
-          <img
-            src={CircleMobile}
-            className="circle-mobile action-click"
-            onClick={calculateAge}
-            alt=""
-          />
-          <img
-            src={CircleDesktop}
-            className="circle-desktop action-click"
-            onClick={calculateAge}
-            alt=""
-          />
-          {/* <img src={CircleBottom} className="circle-bottom" alt="" /> */}
-        </div>
+        </form>
 
         <div className="results">
           <h1><span>{resultYear}</span> Yıl</h1>
