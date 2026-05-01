@@ -115,6 +115,20 @@ span {
   color: var(--purple);
 }
 
+.input-error {
+  border-color: red;
+}
+
+.label-error {
+  color: red;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
+
 @media(min-width:1109px) {
   .container {
     --radius-corner: 200px;
