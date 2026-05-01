@@ -5,6 +5,7 @@ import { useState } from "react"
 
 export default function App() {
 
+  const [formError, setFormError] = useState("");
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -12,6 +13,20 @@ export default function App() {
   const [dayError, setDayError] = useState("");
   const [monthError, setMonthError] = useState("");
   const [yearError, setYearError] = useState("");
+
+  function checkFormValidity() {
+    const hasError =
+      dayError || monthError || yearError ||
+      !day || !month || !year;
+
+    if (hasError) {
+      setFormError("Lütfen tüm alanları doğru şekilde doldurunuz");
+      return false;
+    }
+
+    setFormError("");
+    return true;
+  }
 
   function validate(value, type) {
 
@@ -43,6 +58,11 @@ export default function App() {
   return (
     <>
       <div className="container">
+        {formError && (
+          <div className="form-error">
+            {formError}
+          </div>
+        )}
         <div className="birthday">
           <div className="field">
             <p className={dayError ? "label-error" : ""}>GÜN</p>
@@ -54,6 +74,7 @@ export default function App() {
 
                 const validationError = validate(value, "day");
                 setDayError(validationError);
+                setFormError("");
               }}
               value={day}
               maxLength={2}
@@ -72,6 +93,7 @@ export default function App() {
 
                 const validationError = validate(value, "month");
                 setMonthError(validationError);
+                setFormError("");
               }}
               value={month}
               maxLength={2}
@@ -90,6 +112,7 @@ export default function App() {
 
                 const validationError = validate(value, "year");
                 setYearError(validationError);
+                setFormError("");
               }}
               value={year}
               maxLength={4}
@@ -101,10 +124,21 @@ export default function App() {
         </div>
 
         <div className="separator" />
+        {formError && <p className="form-error">{formError}</p>}
 
-        <div className="action">
-          <img src={CircleMobile} className="circle-mobile" alt="" />
-          <img src={CircleDesktop} className="circle-desktop" alt="" />
+        <div className="action" onClick={checkFormValidity}>
+          <img
+            src={CircleMobile}
+            className="circle-mobile action-click"
+            onClick={checkFormValidity}
+            alt=""
+          />
+          <img
+            src={CircleDesktop}
+            className="circle-desktop action-click"
+            onClick={checkFormValidity}
+            alt=""
+          />
           {/* <img src={CircleBottom} className="circle-bottom" alt="" /> */}
         </div>
 
