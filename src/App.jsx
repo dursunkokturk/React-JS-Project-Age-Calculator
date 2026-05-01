@@ -7,29 +7,34 @@ export default function App() {
 
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
 
   const [dayError, setDayError] = useState("");
   const [monthError, setMonthError] = useState("");
+  const [yearError, setYearError] = useState("");
 
   function validate(value, type) {
 
     const num = Number(value);
+    const currentYear = new Date().getFullYear();
 
     if (!value.trim()) {
-      return type === "day"
-        ? "Gün Alanı Boş Bırakılamaz"
-        : "Ay Alanı Boş Bırakılamaz";
+      if (type === "day") return "Gün Alanı Boş Bırakılamaz";
+      if (type === "month") return "Ay Alanı Boş Bırakılamaz";
+      if (type === "year") return "Yıl Alanı Boş Bırakılamaz";
     }
-
     if (isNaN(num)) {
       return "Sadece Sayı Giriniz";
     }
 
-    if (type==="day" && (num < 1 || num > 31)) {
+    if (type === "day" && (num < 1 || num > 31)) {
       return "Geçerli Bir Gün Giriniz";
     }
-    if (type==="month" && (num < 1 || num > 12)) {
+    if (type === "month" && (num < 1 || num > 12)) {
       return "Geçerli Bir Ay Giriniz";
+    }
+    if (type === "year" && (num > currentYear)) {
+      return "Geçerli Bir Yıl Giriniz";
     }
 
     return "";
@@ -47,7 +52,7 @@ export default function App() {
                 const value = e.target.value;
                 setDay(value);
 
-                const validationError = validate(value,"day");
+                const validationError = validate(value, "day");
                 setDayError(validationError);
               }}
               value={day}
@@ -65,7 +70,7 @@ export default function App() {
                 const value = e.target.value;
                 setMonth(value);
 
-                const validationError = validate(value,"month");
+                const validationError = validate(value, "month");
                 setMonthError(validationError);
               }}
               value={month}
@@ -76,8 +81,22 @@ export default function App() {
             {monthError && <span className="error-text">{monthError}</span>}
           </div>
           <div className="field">
-            <p>YIL</p>
-            <input type="text" maxLength={4} placeholder="YIL" />
+            <p className={yearError ? "label-error" : ""}>YIL</p>
+            <input
+              type="text"
+              onChange={(e) => {
+                const value = e.target.value;
+                setYear(value);
+
+                const validationError = validate(value, "year");
+                setYearError(validationError);
+              }}
+              value={year}
+              maxLength={4}
+              placeholder="YIL"
+              className={yearError ? "input-error" : ""}
+            />
+            {yearError && <span className="error-text">{yearError}</span>}
           </div>
         </div>
 
