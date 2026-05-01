@@ -129,6 +129,13 @@ span {
   font-style: italic;
 }
 
+.form-error {
+  color: #FF5959;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
 @media(min-width:1109px) {
   .container {
     --radius-corner: 200px;
