@@ -1,23 +1,57 @@
 import CircleMobile from "./assets/img/circle-mobile.png"
 import CircleDesktop from "./assets/img/circle-desktop.png"
 import './App.css'
+import { useState } from "react"
 
 export default function App() {
+
+  const [day, setDay] = useState("");
+  const [error, setError] = useState("");
+
+  function validate(value) {
+
+    const num = Number(value);
+
+    if (!value.trim()) {
+      return "Gün Alanı Boş Bırakılamaz";
+    }
+
+    if (isNaN(num) || num < 1 || num > 31) {
+      return "Geçerli Bir Gün Giriniz";
+    }
+
+    return "";
+  }
+
   return (
     <>
       <div className="container">
         <div className="birthday">
           <div className="field">
-            <p>GÜN</p>
-            <input type="text" maxLength={2} placeholder="GÜN"/>
+            <p className={error ? "label-error" : ""}>GÜN</p>
+            <input
+              type="text"
+              onChange={(e) => {
+                const value = e.target.value;
+                setDay(value);
+
+                const validationError = validate(value);
+                setError(validationError);
+              }}
+              value={day}
+              maxLength={2}
+              placeholder="GÜN"
+              className={error ? "input-error" : ""}
+            />
+            {error && <span className="error-text">{error}</span>}
           </div>
           <div className="field field--middle">
             <p>AY</p>
-            <input type="text" maxLength={2} placeholder="AY"/>
+            <input type="text" maxLength={2} placeholder="AY" />
           </div>
           <div className="field">
             <p>YIL</p>
-            <input type="text" maxLength={4} placeholder="YIL"/>
+            <input type="text" maxLength={4} placeholder="YIL" />
           </div>
         </div>
 
