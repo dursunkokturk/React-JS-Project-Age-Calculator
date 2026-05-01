@@ -9,15 +9,15 @@ export default function App() {
         <div className="birthday">
           <div className="field">
             <p>GÜN</p>
-            <input type="text" maxLength={2} />
+            <input type="text" maxLength={2} placeholder="GÜN"/>
           </div>
           <div className="field field--middle">
             <p>AY</p>
-            <input type="text" maxLength={2} />
+            <input type="text" maxLength={2} placeholder="AY"/>
           </div>
           <div className="field">
             <p>YIL</p>
-            <input type="text" maxLength={4} />
+            <input type="text" maxLength={4} placeholder="YIL"/>
           </div>
         </div>
 
