@@ -19,9 +19,7 @@ export default function App() {
   const [resultDay, setResultDay] = useState("--");
 
   function checkFormValidity() {
-    const hasError =
-      dayError || monthError || yearError ||
-      !day || !month || !year;
+    const hasError = dayError || monthError || yearError || !day || !month || !year;
 
     if (hasError) {
       setFormError("Lütfen Tüm Alanları Doğru Şekilde Doldurunuz");
@@ -42,6 +40,7 @@ export default function App() {
     return new Date(year, month, 0).getDate();
   }
 
+  // --------- Bos Alanlarin Kontrolunu Yapiyoruz ---------
   function validate(value, type) {
 
     const num = Number(value);
@@ -91,6 +90,7 @@ export default function App() {
     const birthDate = new Date(y, m - 1, d);
     const today = new Date();
 
+    // Guncel Gun Ay Yil Bilgilerini Aliniyor 
     const isValidDate = birthDate.getFullYear() === y && birthDate.getMonth() === m - 1 && birthDate.getDate() === d;
 
     if (!isValidDate) {
@@ -98,6 +98,8 @@ export default function App() {
       return;
     }
 
+    // Guncel Gun Ay Yil Bilgilerine Gore 
+    // Kullanicidan Alinan Degerler Hesaplaniyor
     let years = today.getFullYear() - birthDate.getFullYear();
     let months = today.getMonth() - birthDate.getMonth();
     let days = today.getDate() - birthDate.getDate();
@@ -115,9 +117,14 @@ export default function App() {
       months += 12;
     }
 
-    setResultYear(years);
-    setResultMonth(months);
+    // Gun Bilgisinin Guncel Durumunu Aliyoruz 
     setResultDay(days);
+    
+    // Ay Bilgisinin Guncel Durumunu Aliyoruz 
+    setResultMonth(months);
+    
+    // Yil Bilgisinin Guncel Durumunu Aliyoruz 
+    setResultYear(years);
   }
 
   return (
@@ -134,6 +141,8 @@ export default function App() {
             calculateAge();
           }}>
           <div className="birthday">
+
+            {/* ----------------- Gun Verisi ----------------- */}
             <div className="field">
               <p className={dayError ? "label-error" : ""}>GÜN</p>
               <input
@@ -147,16 +156,22 @@ export default function App() {
                   setFormError("");
                 }}
                 value={day}
+                className={dayError ? "input-error" : ""}
                 maxLength={2}
                 placeholder="GÜN"
-                className={dayError ? "input-error" : ""}
               />
               {dayError && <span className="error-text">{dayError}</span>}
             </div>
+
+            {/* ----------------- Ay Verisi ----------------- */}
             <div className="field field--middle">
               <p className={monthError ? "label-error" : ""}>AY</p>
               <input
                 type="text"
+                value={month}
+                maxLength={2}
+                className={monthError ? "input-error" : ""}
+                placeholder="AY"
                 onChange={(e) => {
                   const value = e.target.value;
                   setMonth(value);
@@ -165,17 +180,19 @@ export default function App() {
                   setMonthError(validationError);
                   setFormError("");
                 }}
-                value={month}
-                maxLength={2}
-                placeholder="AY"
-                className={monthError ? "input-error" : ""}
               />
               {monthError && <span className="error-text">{monthError}</span>}
             </div>
+
+            {/* ----------------- Yil Verisi ----------------- */}
             <div className="field">
               <p className={yearError ? "label-error" : ""}>YIL</p>
               <input
                 type="text"
+                value={year}
+                maxLength={4}
+                className={yearError ? "input-error" : ""}
+                placeholder="YIL"
                 onChange={(e) => {
                   const value = e.target.value;
                   setYear(value);
@@ -184,10 +201,6 @@ export default function App() {
                   setYearError(validationError);
                   setFormError("");
                 }}
-                value={year}
-                maxLength={4}
-                placeholder="YIL"
-                className={yearError ? "input-error" : ""}
               />
               {yearError && <span className="error-text">{yearError}</span>}
             </div>
@@ -197,12 +210,16 @@ export default function App() {
           {formError && <p className="form-error">{formError}</p>}
 
           <div className="action" onClick={checkFormValidity}>
+            
+            {/* --------- Hesapla Butonu Mobil Gorunum --------- */}
             <img
               src={CircleMobile}
               className="circle-mobile action-click"
               onClick={calculateAge}
               alt=""
             />
+
+            {/* --------- Hesapla Butonu Desktop Gorunum --------- */}
             <button type="submit" className="action-btn">
               <img
                 src={CircleDesktop}
@@ -211,10 +228,10 @@ export default function App() {
                 alt=""
               />
             </button>
-            {/* <img src={CircleBottom} className="circle-bottom" alt="" /> */}
           </div>
         </form>
 
+        {/* -------- Hesaplama Sonuclarini Ekrana Yazdiriyoruz -------- */}
         <div className="results">
           <h1><span>{resultYear}</span> Yıl</h1>
           <h1><span>{resultMonth}</span> Ay</h1>
