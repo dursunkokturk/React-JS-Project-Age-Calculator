@@ -14,13 +14,17 @@ export default function App() {
   const [monthError, setMonthError] = useState("");
   const [yearError, setYearError] = useState("");
 
+  const [resultYear, setResultYear] = useState("--");
+  const [resultMonth, setResultMonth] = useState("--");
+  const [resultDay, setResultDay] = useState("--");
+
   function checkFormValidity() {
     const hasError =
       dayError || monthError || yearError ||
       !day || !month || !year;
 
     if (hasError) {
-      setFormError("Lütfen tüm alanları doğru şekilde doldurunuz");
+      setFormError("Lütfen Tüm Alanları Doğru Şekilde Doldurunuz");
       return false;
     }
 
@@ -38,6 +42,7 @@ export default function App() {
       if (type === "month") return "Ay Alanı Boş Bırakılamaz";
       if (type === "year") return "Yıl Alanı Boş Bırakılamaz";
     }
+
     if (isNaN(num)) {
       return "Sadece Sayı Giriniz";
     }
@@ -45,14 +50,44 @@ export default function App() {
     if (type === "day" && (num < 1 || num > 31)) {
       return "Geçerli Bir Gün Giriniz";
     }
+
     if (type === "month" && (num < 1 || num > 12)) {
       return "Geçerli Bir Ay Giriniz";
     }
+    
     if (type === "year" && (num > currentYear)) {
       return "Geçerli Bir Yıl Giriniz";
     }
 
     return "";
+  }
+
+  function calculateAge() {
+    if (!checkFormValidity()) return;
+
+    const birthDate = new Date(year, month - 1, day);
+    const today = new Date();
+
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
+
+    // Gun Negatifse Aydan Borc Al
+    if (days < 0) {
+      months--;
+      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      days += prevMonth.getDate();
+    }
+
+    // Ay Negatifse Yıldan Borc Al
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    setResultYear(years);
+    setResultMonth(months);
+    setResultDay(days);
   }
 
   return (
@@ -130,22 +165,22 @@ export default function App() {
           <img
             src={CircleMobile}
             className="circle-mobile action-click"
-            onClick={checkFormValidity}
+            onClick={calculateAge}
             alt=""
           />
           <img
             src={CircleDesktop}
             className="circle-desktop action-click"
-            onClick={checkFormValidity}
+            onClick={calculateAge}
             alt=""
           />
           {/* <img src={CircleBottom} className="circle-bottom" alt="" /> */}
         </div>
 
         <div className="results">
-          <h1><span>--</span> Yıl</h1>
-          <h1><span>--</span> Ay</h1>
-          <h1><span>--</span> Gün</h1>
+          <h1><span>{resultYear}</span> Yıl</h1>
+          <h1><span>{resultMonth}</span> Ay</h1>
+          <h1><span>{resultDay}</span> Gün</h1>
         </div>
       </div>
     </>
