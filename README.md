@@ -26,7 +26,7 @@ Gün, ay ve yıl bilgisi alarak tam yaşı yıl, ay ve gün cinsinden hesaplayan
 
 [Proje önizlemesi.](https://dursunkokturk.github.io/React-JS-Project-Age-Calculator)
 
-![Proje Görseli](src/assets/img/react-js-project-age-calculator)
+![Proje Görseli](src/assets/img/react-js-project-age-calculator.png)
 
 ## Özellikler
 
