@@ -113,7 +113,7 @@ A responsive web app built with React that calculates your exact age in years, m
 ## Live Preview
 [Project preview.](https://dursunkokturk.github.io/React-JS-Project-Age-Calculator)
 
-![Proje Görseli](src/assets/img/react-js-project-age-calculator)
+![Proje Görseli](src/assets/img/react-js-project-age-calculator.png)
 
 ## Features
 
